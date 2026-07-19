@@ -1,0 +1,26 @@
+{{define "post-card"}}
+{{$PageData := .}}
+<div class="post-card">
+		<div class="post-title">
+			<a href="/{{.CompleteURL}}"/> {{ $PageData.Frontmatter.Title }}</a>
+		</div>
+		<div class="post-desc">
+			{{ $PageData.Frontmatter.Description }} 
+		</div>
+		<div class="post-date">
+			{{ $PageData.Frontmatter.Date}} 
+		</div>
+
+		<div class="post-tags-container">
+			<h3>Tags</h3>
+			<div class="tags-list">
+				{{range $PageData.Frontmatter.Collections}}
+				{{if eq (.| print) "post" }} {{continue}} {{end}}
+				<div class="post-tag">
+					{{.}}
+				</div>
+				{{end}}
+			</div>
+		</div>
+	</div>
+	{{end}}

@@ -1,0 +1,21 @@
+ {
+  "navbar": [
+	  {"Home": "index.html"},
+	  { "Posts": "collections/post.html" }
+  ],
+  "baseURL": "https://Quan1umMango.github.com",
+  "siteTitle": "Paper's Site lol change this",
+  "siteScripts": [],
+  "author": "Paper",
+  "themeURL": null,
+  "copyright": "This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.",
+  "socials": {
+	"codeberg":"https://codeberg.org/Quan1umMango",
+	"github":"https://github.com/Quan1umMango",
+	"discord":"paper_1111"
+  },
+  "customFields": {},
+  "collectionLayouts": {
+    "collections/posts.html": "all-posts"
+  }
+}
