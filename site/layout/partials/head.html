@@ -16,10 +16,10 @@
     <link rel="stylesheet" href="/static/styles/main.css" />
 
     <!-- Favicons -->
-    <link rel="icon" href="/static/images/anna.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/anna.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/anna.png" />
-    <link rel="apple-touch-icon" href="/static/images/anna.png" />
+    <link rel="icon" href="{{.DeepDataMerge.LayoutConfig.BaseURL}}/static/images/anna.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{.DeepDataMerge.LayoutConfig.BaseURL}}/static/images/anna.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{.DeepDataMerge.LayoutConfig.BaseURL}}/static/images/anna.png" />
+    <link rel="apple-touch-icon" href="{{.DeepDataMerge.LayoutConfig.BaseURL}}/static/images/anna.png" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
 
@@ -46,9 +46,9 @@
     {{ if eq . "graph.js" }}
     <script src="https://d3js.org/d3.v7.min.js" defer></script>
     {{ end }}
-    <script src="/static/scripts/{{.}}" defer></script>
+    <script src="{{.DeepDataMerge.LayoutConfig.BaseURL}}/static/scripts/{{.}}" defer></script>
     {{end}} {{range .DeepDataMerge.LayoutConfig.SiteScripts}}
-    <script src="/static/scripts/{{.}}" defer></script>
+    <script src="{{.DeepDataMerge.LayoutConfig.BaseURL}}/static/scripts/{{.}}" defer></script>
     {{end}}
 
     <meta property="og:type" content="website" />
