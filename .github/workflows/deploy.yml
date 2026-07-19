@@ -1,0 +1,53 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v4
+
+      - name: Download SSG binary
+        run: |
+          curl -L -o ssg.tar.gz "https://github.com/anna-ssg/anna/releases/latest/download/anna_Linux_x86_64.tar.gz"
+          tar -xzf ssg.tar.gz
+
+      - name: Build site
+        run: |
+          ./anna
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload rendered site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/rendered
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
