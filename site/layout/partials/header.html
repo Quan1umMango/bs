@@ -9,7 +9,7 @@
 	    <nav id="mobile-nav" class="site-nav" aria-label="Main navigation">
 		    {{range $index_no, $map := .DeepDataMerge.LayoutConfig.Navbar}}
 		    {{range $key, $value := $map}}
-		    <a class="navitem" href="/{{ $value }}">{{ $key }}</a>
+		    <a class="navitem" href="{{.DeepDataMerge.LayoutConfig.BaseURL}}/{{ $value }}">{{ $key }}</a>
 		    {{end}}
 		    {{end}}
 	    </nav>
