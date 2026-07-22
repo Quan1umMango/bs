@@ -1,9 +1,12 @@
 {{define "post-list"}}
-{{$PageData := index .DeepDataMerge.Templates .PageURL}}
+{{ $PageData := index .DeepDataMerge.Templates .PageURL }} {{if eq $PageData nil
+}} {{ $PageData = .TemplateData }} {{end}}
+
 
 <div class="posts-list">
+	{{$con := .}}
 	{{ range $pages := (index .DeepDataMerge.CollectionsMap .PageURL)}}
-	{{template "post-card" $pages}}
+	{{template "post-card" $con}}
 	{{end}}
 </div>
 

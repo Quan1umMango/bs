@@ -1,8 +1,10 @@
 {{define "post-card"}}
-{{$PageData := .}}
+{{ $PageData := index .DeepDataMerge.Templates .PageURL }} {{if eq $PageData nil
+}} {{ $PageData = .TemplateData }} {{end}}
 <div class="post-card">
 		<div class="post-title">
-			<a href="/{{.CompleteURL}}"/> {{ $PageData.Frontmatter.Title }}</a>
+		
+			<a href="{{.DeepDataMerge.LayoutConfig.BaseURL}}/{{.PageURL}}"/> {{ $PageData.Frontmatter.Title }}</a>
 		</div>
 		<div class="post-desc">
 			{{ $PageData.Frontmatter.Description }} 

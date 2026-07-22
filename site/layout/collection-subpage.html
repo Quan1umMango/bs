@@ -3,19 +3,45 @@
 {{ template "head" .}}
 
 <body class="site-body">
-    {{template "header" .}}
-    <main class="container site-main" role="main">
-        <article class="content">
-            <section class="tagged-posts">
-                {{$CollectionSet := index .DeepDataMerge.CollectionsMap .PageURL}}
-                {{range $CollectionSet }}
-		{{template "post-card" .}}
-                {{end}}
-            </section>
-        </article>
-    </main>
+	{{template "header" .}}
+	<main class="container site-main" role="main">
+		<article class="content">
+			<section class="tagged-posts">
+				<div class="posts-list">
+					<!-- HACK: i do not know how to get this working properly. if i make post-list into its own partial, then i cannot access .DeepDataMerge for some reason. FAHHH -->
+					{{$con := .}}
+					{{ range $pages := (index .DeepDataMerge.CollectionsMap .PageURL)}}
+					<div class="post-card">
+						<div class="post-title">
 
-    {{template "footer" .}}
+							<a href="{{$con.DeepDataMerge.LayoutConfig.BaseURL}}/{{.CompleteURL}}"/> {{ .Frontmatter.Title }}</a>
+						</div>
+						<div class="post-desc">
+							{{ .Frontmatter.Description }} 
+						</div>
+						<div class="post-date">
+							{{ .Frontmatter.Date}} 
+						</div>
+
+						<div class="post-tags-container">
+							<h3>Tags</h3>
+							<div class="tags-list">
+								{{range .Frontmatter.Collections}}
+								{{if eq (.| print) "post" }} {{continue}} {{end}}
+								<div class="post-tag">
+									{{.}}
+								</div>
+								{{end}}
+							</div>
+						</div>
+					</div>
+					{{end}}
+				</div>
+			</section>
+		</article>
+	</main>
+
+	{{template "footer" .}}
 </body>
 
 </html>
