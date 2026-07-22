@@ -32,17 +32,17 @@ This website will be your best friend when trying to program the BIOS. The reaso
 Now I told you that the program must fit in 512 bytes. I lied\
 Well, technically, it is 512 bytes. But the last two bytes are reserved for the boot signature ``0xaa55``. So you're really left with 510 bytes to work with.\
 \
-Now the simplest bootsector is the one that simply exists. But thats no fun.\
+Now the simplest boot sector is the one that simply exists. But that's no fun.\
 \
-So here I state with no proof: The simplest bootsector is one which loops forever. \
-I don't believe this will be controversial, because almost all "making your own OS" resources do start with the infinitly looping bootsector as one of the first things. \
+So here I state with no proof: The simplest boot sector is one which loops forever. \
+I don't believe this will be controversial, because almost all "making your own OS" resources do start with the infinitely-looping boot sector as one of the first things. \
 Doing this is pretty simple:
 
 ```x86asm
 loop:
     jmp loop
 
-times 510-($-$$) db 0; fills the remainaing space with 0, except for the last two bytes 
+times 510-($-$$) db 0; fills the remaining space with 0, except for the last two bytes 
 dw 0xaa55
 ```
 
@@ -76,7 +76,7 @@ Looking at RBIL:\
 ![RBIL giving so many results](../static/images/posts/snek/rbilwoa.png)\
 \
 Woah, so much stuff. You'll see that some of the entries are just Int 0x10, while others have a slash followed by other information.\
-These other values tell us what to set the registors (like AH, AL, AX, BL etc.) when we want to call that particular routine.\
+These other values tell us what to set the registers (like AH, AL, AX, BL etc.) when we want to call that particular routine.\
 Depending on the values they contain, the same instruction ``int 0x10`` will do different things\
 \
 We want to print things to the screen, the entry corresponding to it is the last one ``int 0x10/AH=0Eh`` (0Eh is another way of writing 0x0E)\
@@ -109,20 +109,20 @@ int 0x10
 loop:
     jmp loop
 
-; And the rest of code being same...
+; And the rest of the code is the same...
 ```
 Pretty nice, we now have an "HELLO" on our screens!!:\
 ![output for the above code](../static/images/posts/snek/hello.png)
 
 Notice the back to back interrupts after moving 'L' to register ``al``. Why is that? (waiting for you to think...and done!)
-Thats because we want to print 'L' twice into the screen. Since ``al`` already contains that letter (and also because we know that this particular interrupt will not chnage that register), we can simply call the interrupt again!
+Thats because we want to print 'L' twice into the screen. Since ``al`` already contains that letter (and also because we know that this particular interrupt will not change that register), we can simply call the interrupt again!
 
 ## Let there be White! And Black! And Green! And...
 The astute reader might notice the BL parameter, for the foreground color. This however only works in graphics mode, and we are currently in text mode\
 \
-Graphics mode allows you to operate on individual pixels, while text mode works with characters placed on a grid. Text modde also let's the BIOS manage the cursor for us.\
+Graphics mode allows you to operate on individual pixels, while text mode works with characters placed on a grid. Text mode also let's the BIOS manage the cursor for us.\
 I simply went with it because it just looked simpler\
-Now then, how do we print colors?? We use  different ``AH`` value:\
+Now then, how do we print colors?? We use  different ``AH`` values:\
 ![RBIL page for int 0x10/AH=09h](../static/images/posts/snek/rbil09h.png)
 ![RBIL page for int 0x10/AH=09h but more info](../static/images/posts/snek/rbil09hbig.png)\
 Using these, we are pretty much set to draw with different colors. We will use a simplified example just to keep it small:
@@ -134,14 +134,14 @@ mov bh, 0
 mov bl, 2
 int 0x10
 ```
-And we seee\
+And we see\
 ![output for the above code](../static/images/posts/snek/colors.png)\
 Well one thing you might notice is the cursor is at the start of the line, but shouldn't it have been at the end? Well turns out that this interrupt call doesn't handle cursors\
 (you might now see why I did not create a complete "hello" example, setting the cursor would be a pain for every letter)\
 \
-Speaking of cursors.Yes there is one for setting the cursors too, ``int 0x10/AH=02h``, but we will avoid it for now. Read it up for yourself if youre interested!!\
+Speaking of cursors.Yes there is one for setting the cursors too, ``int 0x10/AH=02h``, but we will avoid it for now. Read it up for yourself if you're interested!!\
 \
-Now, let's fill the whole screen with a color. To do this, we simply set the cursor position to be at (0,0) (which is the top left corner) and the ``CX`` argument as number of characters, or equivivalently, the screen width multiplied screen height. So we are priting ``SCR_W*SCR_H`` amount of characters:
+Now, let's fill the whole screen with a color. To do this, we simply set the cursor position to be at (0,0) (which is the top left corner) and the ``CX`` argument as number of characters, or equivalently, the screen width multiplied screen height. So we are printing``SCR_W*SCR_H`` amount of characters:
 ```x86asm
 %define SCR_W 80
 %define SCR_H 25 
@@ -193,7 +193,7 @@ The next step would be detecting user input and updating the position according 
 Either of these two work, but the top one is synchronous, pauses the program until there is a keystroke to read and clears the keystroke buffer.\
 The second one is async, does not pause the program, but does not clear the keystroke buffer.\
 So heres what I did:\
-I checked for user input using the second interrupt. If there is a user input, I clear the buffer using the first interrupt. If i did not clear the buffer, then I would keep reading the same keystroke over and over\
+I checked for user input using the second interrupt. If there is a user input, I clear the buffer using the first interrupt. If I did not clear the buffer, then I would keep reading the same keystroke over and over\
 Lets peek into one of them:\
 ![result of peeking at the RBIl page](../static/images/posts/snek/keystrokepeek.png)\
 You can see that ``AH`` stores the BIOS scan code, and ``AL`` stores the ASCII code.\
@@ -216,7 +216,7 @@ The ``dir`` byte stores the current direction\
 Notice how this is a size optimization. We can store which direction we are moving, by using only a byte (really it's just 2 bits, but accessing individual bits will take a lot more instructions, negating our size optimization)\
 \
 Now depending on the keys pressed, we can change the ``dir`` value. But we must also check for improper moving. For example, if you are currently moving up, you should be allowed to just move down directly. This part again is pretty simple to implement. The function does three things:
-- Check if any key is pressed. Return immeditaley if no keys are pressed.
+- Check if any key is pressed. Return immediately if no keys are pressed.
 - Clear the keyboard buffer (so as to not read the same input over and over)
 - Compare the scan code constants for keys 
 - Change the direction based on the keys pressed (and the current direction of the snake)
@@ -270,7 +270,7 @@ hi_end:
 
 Assuming all the constants are defined (look at the source code for the program)\
 \
-We also want to update the snakes position depending on the direction. We do that by simply checking what the ``dir`` value is, and then updating the x or y values accordingly:\
+We also want to update the snake's position depending on the direction. We do that by simply checking what the ``dir`` value is, and then updating the x or y values accordingly:\
 <video src="../static/videos/posts/snek/controllable_guy.mp4" width="500" height="500" controls></video>
 \
 \
@@ -293,7 +293,7 @@ player_x:
 player_y:
 [head_y][body_1_y][body_2_y][body_3_y]..
 ```
-So the first element denotes the x or y coordinate of the head, while other denote the x and y coordinates of a particular body part. 
+So the first element denotes the x or y coordinate of the head, while the other denotes the x and y coordinates of a particular body part. 
 The implementation is mostly bookkeeping, moving body parts around, shifting head positions. I will skip over it, but the full code is available in the repo. 
 
 ## Apple
@@ -308,7 +308,8 @@ Yeah that won't work. The error comes from this line:
 ```x86asm
 times 510-($-$$) db 0
 ```
-It pretty much tells us that our program is more than 510 bytes big.\ Increasing ``MAX_LEN`` increases the amount of data we use.\
+It pretty much tells us that our program is more than 510 bytes big.\
+Increasing ``MAX_LEN`` increases the amount of data we use.\
 \
 The way to solve this would be to optimize our instructions.\
 Take a look at this:
@@ -330,28 +331,32 @@ You could instead do:
 inc word [val]
 ```
 And save another 1 byte.\
-(These instructions are not always interchangable though, because they can affect CPU flags differently).
-These are some of the optimizations that your compilers do for you during machine code generation to reduce code size, and when we only have effectively 510 bytes to work with, these are even more cruicial!\
-Applying such optimizations to my written code as well as refactoring it to avoid duplicates, I went from having my binary size to be 474, from the whatever 510+ bytes i was using. Thats a lott of savings.
+(These instructions are not always interchangeable though, because they can affect CPU flags differently).
+These are some of the optimizations that your compilers do for you during machine code generation to reduce code size, and when we only have effectively 510 bytes to work with, these are even more crucial!\
+Applying such optimizations to my written code as well as refactoring it to avoid duplicates, I went from having my binary size to be 474, from the 510+ bytes I was using. That's a lott of savings.
 
 ## The Incomplete End
 I never really finished snake.\
 There isn't a win/lose screen.\
-The snake also can go out of bounds, in which case it behaves wierdly.\
+The snake also can go out of bounds, in which case it behaves weirdly.
 The snake can go inside itself\
 Apples can spawn inside the snake.\
 \
 Most of these aren't difficult to solve. The issue however is that we just don't have enough space for this logic. I had to choose between adding features or allowing my snake to grow longer. Unfortunately, I cannot have both. 
 
-Despite all these limitations, seeing a game run from the boot sector was still pretty cool. It can be a good reminder of how much can be done with such little space. I do plan on moving away from just the boot sector into a real mode environment, which will allow me to do a lot more without fighting for every single byte. Maybe theres a future project idea hidden in there somewhere
+Despite all these limitations, seeing a game run from the boot sector was still pretty cool. It can be a good reminder of how much can be done with such little space. I do plan on moving away from just the boot sector into a real mode environment, which will allow me to do a lot more without fighting for every single byte. Maybe there's a future project idea hidden in there somewhere
 
 ## Other Misc Questions 
-### Q. Why don't I use the stack to store the snakes body positions?
+### Q. Why don't I use the stack to store the snake's body positions?
 A. Because I got the idea in the middle of writing the post lol. It could be done though, and it would save a lot of bytes. Another improvement would be to store the player x and y in a single 16-bit value.
 
 ### Q. Why is the game flickering?
 A. I think it's got to do with me printing into the screen a lot of times per second, and because there isn't any frame buffer.\
-There is however another anamoly that needs explaining. When moving to the top of the screen, the flicker gets really bad. But anywhere below its not really noticable. Why that happens, I have no idea.
+There is however another anomaly that needs explaining. When moving to the top of the screen, the flicker gets really bad. But anywhere below it's not really noticeable. Why that happens, I have no idea.
 
 ### Q. Why does the snake look like its moving vertically at a much faster rate than moving horizontally?
 A. This is due to the fact that the text mode characters are taller than they are wide. So it's drawing a lot more physical distance when it draws the snake vertically rather than when it's drawing horizontally. I reckon that equal distances will be covered in equal amounts of time, if you decide to measure it.
+
+
+
+
