@@ -7,11 +7,10 @@
     <div class="header-inner">
 
 	    <nav id="mobile-nav" class="site-nav" aria-label="Main navigation">
-
-		     {{$base := .DeepDataMerge.LayoutConfig.BaseURL}}
+		    {{$bu := .DeepDataMerge.LayoutConfig.BaseURL}}
 		    {{range $index_no, $map := .DeepDataMerge.LayoutConfig.Navbar}}
 		    {{range $key, $value := $map}}
-		    <a class="navitem" href="{{ $base }}/{{ $value }}">{{ $key }}</a>
+		    <a class="navitem" href="{{$bu}}/{{ $value }}">{{ $key }}</a>
 		    {{end}}
 		    {{end}}
 	    </nav>
