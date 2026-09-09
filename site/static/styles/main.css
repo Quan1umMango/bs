@@ -457,3 +457,97 @@ pre code {
     font-size: 0.9em;
 }
 
+blockquote {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md) var(--space-lg);
+
+    background: var(--color-surface);
+
+    border-left: 4px solid var(--color-accent);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    border-top: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+
+    color: var(--color-text-muted);
+
+    font-size: 1.4rem;
+    line-height: 1.6;
+    font-style: italic;
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+blockquote:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-md);
+}
+
+blockquote p {
+    margin: 0;
+}
+
+blockquote p + p {
+    margin-top: var(--space-md);
+}
+
+
+/* Lists */
+ul,
+ol {
+    color: var(--color-text-muted);
+    font-size: 1.35rem;
+    line-height: 1.7;
+
+    margin: var(--space-md) 0;
+    padding-left: 2rem;
+}
+
+ul li,
+ol li {
+    padding-left: 0.4rem;
+    margin-bottom: var(--space-sm);
+
+    transition: color 0.2s ease;
+}
+
+ul li::marker {
+    color: var(--color-accent);
+    font-size: 0.9em;
+}
+
+ol li::marker {
+    color: var(--color-accent);
+    font-weight: 700;
+}
+
+li:hover {
+    color: var(--color-text);
+}
+
+/* Nested lists */
+li > ul,
+li > ol {
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xs);
+}
+
+/* Links inside lists */
+li a {
+    color: var(--color-accent);
+    transition:
+        color 0.2s ease,
+        text-decoration 0.2s ease;
+}
+
+li a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+}
+

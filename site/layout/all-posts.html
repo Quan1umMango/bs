@@ -9,7 +9,6 @@
             <section class="posts">
 		    <div class="container" >
                 {{range $Post := index .DeepDataMerge.CollectionsMap .PageURL}}
-		fahh
 		{{$Post.Frontmatter.Title}} <br>
                 <a class="post-card" href="/{{$Post.CompleteURL}}">
                     <div class="post-card-div">

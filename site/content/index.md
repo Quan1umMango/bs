@@ -1,7 +1,7 @@
 ---
 date:  2006-01-02 
 title: hi, i'm aston
-description: "Some "
+description: "helloo this my website"
 layout: landing 
 customFields:
     - Subtitle: ""
@@ -12,7 +12,7 @@ I'm an undergraduate student studying CSE in Bangalore
 
 # What do I do? 
 I spend my time digging into low level systems, bits of CS theory and making things from scratch. \
-Apart from tech, i like doing a little bit of armchair philosophy and dipping my toes in several other miscellaneous rabbit holes
+Apart from tech, i like doing a little bit of armchair philosophy and theology aswell as dipping my toes in several other miscellaneous rabbit holes
 
 # What is this place?
 This website will mostly contain things i learn about, experiments that worked, those that definitely didnt and maybe every now and then some bits of philosophy. \
