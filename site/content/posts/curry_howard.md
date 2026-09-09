@@ -17,7 +17,7 @@ We will first review some notation, then move on to definitions, and finally wha
 
 **Proposition**: A mathematical statement which can be asserted or proven within a logical system. Keep in mind that we will be using an intuitionistic system of logic, rather than classical logic.
 
-**Axiom**: Some that is assumed to be true, without prior proof in the system. This is usually assumed to prove other propositions. 
+**Axiom**: Something that is assumed to be true, without prior proof in the system. This is usually assumed to prove other propositions. 
 
 **Connectives**: Symbols that are used to create more complex proposistions from from simpler ones:
 - **Conjunction (AND)**: Written A ∧ B represents having both A and B 
@@ -25,14 +25,14 @@ We will first review some notation, then move on to definitions, and finally wha
 - **Negation (NOT)**: Written ¬A, read as "not A" represents that assuming A to be true leads to a contradiction 
 - **Implication ⇒**: Written as A ⇒ B, read as "A implies B" represents that a proof of A can be converted to a proof of B
 
-These symbols are a bit cumbersome for me write, so excuse me for using these as subsitutes:
+These symbols are a bit cumbersome to write, so excuse me for using these as subsitutes:
 - ∧ as &
 - ∨ as |
 - ¬ as ~
 - ⇒ as ->
 
 # What is a proof?
-A proof can be said to be a step-wise derivation from a premises to a conclusion. You assume the premises are true, then show that from that assumption, the conclusion necessarily follows.
+A proof can be said to be a step-wise derivation from premises to a conclusion. You assume the premises are true, then show that from that assumption, the conclusion necessarily follows.
 Here's a classic (almost overused) example:
 1. All men are mortal (Premise)
 2. Socrates is a man (Premise)
@@ -42,7 +42,7 @@ From two premises, we conclude something new, namely that Socrates is mortal.
 
 ## What is a proof in mathematics?
 Mathematically, the definition give above also works fine. 
-In our discussion however, We will use a more concise and symbol notation instead of typing the words out.
+In our discussion however, We will use a more concise symbol notation instead of typing the words out.
 
 As an example, here's the law of excluded middle in two different forms:
 > For any proposition, the proposition or its negation is true
@@ -68,10 +68,10 @@ Although for simplicity and clarity, I will occasionally use numbers and arithme
 
 **Function**: Functions are entities in this system, which take in a single argument, and produce a result. They are nameless (although there are systems in which you can give them names).
 
-Functions that need to take in multiple arguments can be made by returning function another function
+Functions that need to take in multiple arguments can be made by returning another function
 The definitions of a function is also called function abstraction.
 
-As an example, here is the identity function (which takes in a single argument, and returns it back) is defined as follows:
+As an example, here is the identity function (which takes in a single argument, and returns it back):
 ```
 λx.x
 ```
@@ -152,12 +152,13 @@ or simply
 This example is little extra, so don't worry if you dont get it. Try out the equivalent python code if you want.
 
 ## Adding types to our little language
-Let's add a notation of types. Given a entity ``x``, we can say that it has the type ``T`` by writing:
+Let's add a notation of types. Given an entity ``x``, we can say that it has the type ``T`` by writing:
 ```
 x:T
 ```
 read as "x has type T".
-As a concrete example: ``x: int`` means ``x`` has type ``int``
+As a concrete example: ``x: int`` means ``x`` has type ``int``.
+
 Functions too have types in simply-typed lambda calculus.
 A type of function is written as: 
 ```
@@ -192,9 +193,9 @@ So here's the basic idea: The proofs in logic in a way correspond to types of a 
 
 Type checking means corresponds to checking if the proof is valid, and running the program corresponds to normalizing the proof! This remarkable result lays one of the foundations for ideas that allow you to create things like proof assistants such as Rocq and Lean (be sure to check them out, they're wonderful)
 
-We can actually go further, and get the corresponding lambda calculus counter-parts for each of the logic things  (change this to a better word lol).
+We can actually go further, and get the corresponding lambda calculus counter-parts for each of the logical constructs.
 
-- **Proposition named A**: A
+- **Proposition named A**: the type A
 - **Implication of kind A implies B**:  Function/λ abstraction of the type ``A -> B``
 - **Negation of A**: Function of type ``A -> ⊥`` (where ``⊥`` corresponds to falsehood. It is also called ``empty`` type, and no values have this type). If your logical system somehow proves falsehood, then it is inconsistent and n longer useful.
 - **Conjunction A & B**: Pair/Tuple of type (A,B). (Pair with first element of type A, and second element of type B). You can also use the product type AxB, which is essentially the same thing.
