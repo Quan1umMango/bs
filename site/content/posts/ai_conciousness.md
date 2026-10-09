@@ -3,7 +3,7 @@ date: 2026-10-08
 title: "Why AI (as it is) cannot be concious"
 description: "A simple metaphysical argument why conciousness cannot be purely physical"
 layout: page
-collections: ["metaphysics", "philosophy", "AI"]
+collections: ["metaphysics", "philosophy", "AI", "post"]
 ---
 
 So a while back, an Anthropic scientist [met with the Pope](https://www.yahoo.com/news/science/articles/anthropic-tried-persuade-pope-ai-131853948.html) to persuade him that AI could be a concious being. Pope Leo previously in his encyclical *MAGNIFICA HUMANITAS* talked how an AI cannot be concious.
