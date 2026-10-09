@@ -48,7 +48,7 @@ So what's the big deal about intentionality? Well, it poses a very big difficult
 
 Consider this picture:
 
-![A picture with a badly drawn circle](../static/images/posts/ai_conscious/whatisthis.png)
+![A picture with a badly drawn circle](../static/images/posts/ai_concious/whatisthis.png)
 
 What does this represent?
 
@@ -58,7 +58,7 @@ But ultimately you may realize that none of the physical facts (in this case, th
 Now someone might say "write what it represents below the image":
 
 
-![A picture with a badly drawn circle with text below it "this is a Ball!"](../static/images/posts/ai_conscious/subtitledwhatisthis.png)
+![A picture with a badly drawn circle with text below it "this is a Ball!"](../static/images/posts/ai_concious/subtitledwhatisthis.png)
 
 We can now know that the image does represent a ball, but that's only because we read the text below it. But this text is purely physical too, therefore physical things can be intentional!
 
